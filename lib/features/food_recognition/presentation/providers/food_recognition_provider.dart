@@ -2,34 +2,59 @@ import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 
-final selectedImageProvider = StateProvider<File?>((ref) => null);
+class HomePage extends ConsumerWidget {
+  const HomePage({Key? key}) : super(key: key);
 
-final imagePickerProvider = Provider<ImagePicker>((ref) => ImagePicker());
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
 
-final imagePickerControllerProvider = Provider((ref) {
-  final imagePicker = ref.watch(imagePickerProvider);
-  final imageNotifier = ref.read(selectedImageProvider.notifier);
+    // Fungsi untuk menangani aksi button
+    void handleImagePicking(ImageSource source) async {
+      // Panggil service melalui provider
+      final imageService = ref.read(imageServiceProvider);
+      final selectedImage = await imageService.pickAndCropImage(source);
 
-  return ImagePickerController(
-    imagePicker: imagePicker,
-    imageNotifier: imageNotifier,
-  );
-});
-
-class ImagePickerController {
-  final ImagePicker _imagePicker;
-  final StateController<File?> _imageNotifier;
-
-  ImagePickerController({
-    required ImagePicker imagePicker,
-    required StateController<File?> imageNotifier,
-  }) : _imagePicker = imagePicker,
-       _imageNotifier = imageNotifier;
-
-  Future<void> pickImage(ImageSource source) async {
-    final pickedFile = await _imagePicker.pickImage(source: source);
-    if (pickedFile != null) {
-      _imageNotifier.state = File(pickedFile.path);
+      if (selectedImage != null && context.mounted) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ResultPage(imageFile: selectedImage),
+          ),
+        );
+      }
     }
+
+    return Scaffold(
+      appBar: AppBar(title: const Text('Food Recognizer App')),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton.icon(
+              icon: const Icon(Icons.photo_library),
+              label: const Text('Pilih dari Galeri'),
+              onPressed: () => handleImagePicking(ImageSource.gallery),
+            ),
+            const SizedBox(height: 16),
+            ElevatedButton.icon(
+              icon: const Icon(Icons.camera_alt),
+              label: const Text('Ambil dari Kamera'),
+              onPressed: () => handleImagePicking(ImageSource.camera),
+            ),
+            const SizedBox(height: 16),
+            ElevatedButton.icon(
+              icon: const Icon(Icons.stream),
+              label: const Text('Buka Live Feed'),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const CameraFeedPage()),
+                );
+              },
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
