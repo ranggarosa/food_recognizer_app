@@ -6,9 +6,5 @@ Future<void> main() async {
   // Muat variabel dari file .env
   await dotenv.load(fileName: ".env");
 
-  runApp(
-    const ProviderScope(
-      child: MyApp(),
-    ),
-  );
+  runApp(const ProviderScope(child: MyApp()));
 }

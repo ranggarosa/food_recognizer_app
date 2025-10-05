@@ -1,0 +1,6 @@
+/* Localized strings for Info.plist
+English (en) */
+
+"NSCameraUsageDescription" = "This app needs camera access to take photos of food for identification.";
+"NSPhotoLibraryUsageDescription" = "This app needs photo library access to select photos of food for identification.";
+"NSMicrophoneUsageDescription" = "This app needs microphone access to record videos with sound.";

@@ -11,8 +11,8 @@ final imagePickerControllerProvider = Provider((ref) {
   final imageNotifier = ref.read(selectedImageProvider.notifier);
 
   return ImagePickerController(
-      imagePicker: imagePicker,
-      imageNotifier: imageNotifier
+    imagePicker: imagePicker,
+    imageNotifier: imageNotifier,
   );
 });
 
@@ -23,7 +23,8 @@ class ImagePickerController {
   ImagePickerController({
     required ImagePicker imagePicker,
     required StateController<File?> imageNotifier,
-  }) : _imagePicker = imagePicker, _imageNotifier = imageNotifier;
+  }) : _imagePicker = imagePicker,
+       _imageNotifier = imageNotifier;
 
   Future<void> pickImage(ImageSource source) async {
     final pickedFile = await _imagePicker.pickImage(source: source);

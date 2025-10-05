@@ -1,0 +1,6 @@
+/* Localized strings for Info.plist
+Bahasa Indonesia (id) */
+
+"NSCameraUsageDescription" = "Aplikasi ini memerlukan akses kamera untuk mengambil foto makanan yang akan diidentifikasi.";
+"NSPhotoLibraryUsageDescription" = "Aplikasi ini memerlukan akses galeri untuk memilih foto makanan yang akan diidentifikasi.";
+"NSMicrophoneUsageDescription" = "Aplikasi ini memerlukan akses mikrofon untuk merekam video dengan suara.";

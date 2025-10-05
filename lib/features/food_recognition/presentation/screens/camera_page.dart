@@ -20,7 +20,9 @@ class CameraPage extends ConsumerWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          ref.read(imagePickerControllerProvider).pickImage(ImageSource.gallery);
+          ref
+              .read(imagePickerControllerProvider)
+              .pickImage(ImageSource.gallery);
         },
         child: const Icon(Icons.photo_library),
       ),
